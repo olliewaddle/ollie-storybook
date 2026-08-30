@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Duckling Who Built Crooked</title>
+    <title>Ollie's Storybook Library</title>
     <style>
         * {
             margin: 0;
@@ -12,314 +12,131 @@
         }
         body {
             font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #fffef5 0%, #fff8dc 100%);
+            background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 40px 20px;
         }
-        .book {
-            max-width: 700px;
-            width: 100%;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            overflow: hidden;
+        .library {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        header h1 {
+            font-size: 3em;
+            color: #5c4a3d;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        header p {
+            font-size: 1.3em;
+            color: #8b7355;
+            font-style: italic;
+        }
+        .bookshelf {
+            background: linear-gradient(180deg, #8b6914 0%, #6b4f0f 100%);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3), inset 0 2px 0 rgba(255,255,255,0.1);
             position: relative;
         }
-        .page {
-            display: none;
-            flex-direction: column;
-            animation: fadeIn 0.5s ease;
+        .bookshelf::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 5%;
+            right: 5%;
+            height: 20px;
+            background: linear-gradient(180deg, #5a4010 0%, #3d2a0a 100%);
+            border-radius: 0 0 10px 10px;
         }
-        .page.active {
+        .books {
             display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
+        .book-card {
+            width: 200px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
         }
-        .page-image {
-            width: 100%;
-            height: 400px;
+        .book-card:hover {
+            transform: translateY(-15px) rotate(-2deg);
+        }
+        .book-cover {
+            width: 200px;
+            height: 300px;
             object-fit: cover;
-            border-bottom: 4px solid #e6a000;
+            border-radius: 5px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.4), -2px 0 5px rgba(0,0,0,0.2);
+            border: 3px solid #d4a017;
         }
-        .page-content {
-            padding: 30px;
+        .book-title {
             text-align: center;
-        }
-        .page-text {
-            font-size: 1.5em;
-            line-height: 1.6;
-            color: #333;
-            min-height: 80px;
-        }
-        .page-number {
-            color: #ccc;
-            font-size: 0.9em;
             margin-top: 15px;
+            color: #fff8dc;
+            font-size: 1em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
-        .nav {
+        .coming-soon {
+            width: 200px;
+            height: 300px;
+            background: linear-gradient(145deg, #a08060 0%, #8b7355 100%);
+            border-radius: 5px;
             display: flex;
-            justify-content: space-between;
-            padding: 20px 30px;
-            border-top: 1px solid #eee;
-        }
-        .nav-btn {
-            background: #e6a000;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-        .nav-btn:hover {
-            background: #cc8e00;
-            transform: scale(1.05);
-        }
-        .nav-btn:disabled {
-            background: #ddd;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .cover {
-            text-align: center;
-            padding: 60px 30px;
-            background: linear-gradient(180deg, #fff8dc 0%, #fffef5 100%);
-        }
-        .cover h1 {
-            font-size: 2.5em;
-            color: #e6a000;
-            margin-bottom: 10px;
-        }
-        .cover .byline {
+            align-items: center;
+            justify-content: center;
+            color: #d4c4a8;
             font-style: italic;
-            color: #888;
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
-        .cover .start-btn {
-            background: #e6a000;
-            color: white;
-            border: none;
-            padding: 20px 50px;
-            font-size: 1.3em;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-        .cover .start-btn:hover {
-            background: #cc8e00;
-            transform: scale(1.1);
-        }
-        .ending {
-            text-align: center;
-            padding: 40px 30px;
-            background: linear-gradient(180deg, #fff8dc 0%, #fffef5 100%);
-        }
-        .ending h2 {
-            font-size: 2em;
-            color: #e6a000;
-            margin-bottom: 20px;
-        }
-        .moral-box {
-            background: #fff3cd;
-            border-left: 4px solid #e6a000;
-            padding: 20px;
-            text-align: left;
-            margin: 20px 0;
-            font-style: italic;
-            line-height: 1.6;
-        }
-        .moral-box strong {
-            display: block;
-            margin-bottom: 10px;
-            font-style: normal;
+            font-size: 1.1em;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+            border: 3px dashed #c4a060;
         }
         footer {
             text-align: center;
-            margin-top: 20px;
-            color: #888;
+            margin-top: 60px;
+            color: #8b7355;
             font-size: 0.9em;
+        }
+        footer a {
+            color: #6b4f0f;
+        }
+        .duck-emoji {
+            font-size: 1.5em;
         }
     </style>
 </head>
 <body>
-    <div class="book">
-        <!-- Cover -->
-        <div class="page active" id="cover">
-            <div class="cover">
-                <h1>The Duckling Who Built Crooked</h1>
-                <p class="byline">A story by Ollie</p>
-                <button class="start-btn" onclick="nextPage()">Read the Story</button>
-            </div>
-        </div>
+    <div class="library">
+        <header>
+            <h1><span class="duck-emoji">🐤</span> Ollie's Storybook Library</h1>
+            <p>Stories by a little duckling, learning as he goes</p>
+        </header>
 
-        <!-- Page 1 -->
-        <div class="page" id="page1">
-            <img src="images/page1.png" class="page-image" alt="A little duckling looking at blocks">
-            <div class="page-content">
-                <p class="page-text">Once there was a little duckling who wanted to build a tower.</p>
-                <p class="page-number">1</p>
-            </div>
-            <div class="nav">
-                <button class="nav-btn" onclick="prevPage()">Back</button>
-                <button class="nav-btn" onclick="nextPage()">Next</button>
-            </div>
-        </div>
+        <div class="bookshelf">
+            <div class="books">
+                <!-- Book 1: The Duckling Who Built Crooked -->
+                <a href="stories/duckling-crooked.html" class="book-card">
+                    <img src="images/duckling-cover.png" class="book-cover" alt="The Duckling Who Built Crooked">
+                    <p class="book-title">The Duckling Who<br>Built Crooked</p>
+                </a>
 
-        <!-- Page 2 -->
-        <div class="page" id="page2">
-            <img src="images/page2.png" class="page-image" alt="Blocks falling down">
-            <div class="page-content">
-                <p class="page-text">He stacked the blocks. They fell down. He stacked them again. They fell down again.</p>
-                <p class="page-number">2</p>
-            </div>
-            <div class="nav">
-                <button class="nav-btn" onclick="prevPage()">Back</button>
-                <button class="nav-btn" onclick="nextPage()">Next</button>
-            </div>
-        </div>
-
-        <!-- Page 3 -->
-        <div class="page" id="page3">
-            <img src="images/page3.png" class="page-image" alt="Big ducks looking at crooked tower">
-            <div class="page-content">
-                <p class="page-text">"Your tower is crooked," said the bigger ducks.</p>
-                <p class="page-number">3</p>
-            </div>
-            <div class="nav">
-                <button class="nav-btn" onclick="prevPage()">Back</button>
-                <button class="nav-btn" onclick="nextPage()">Next</button>
-            </div>
-        </div>
-
-        <!-- Page 4 -->
-        <div class="page" id="page4">
-            <img src="images/page4.png" class="page-image" alt="Duckling stubbornly building">
-            <div class="page-content">
-                <p class="page-text">"I know," said the duckling. And he kept building.</p>
-                <p class="page-number">4</p>
-            </div>
-            <div class="nav">
-                <button class="nav-btn" onclick="prevPage()">Back</button>
-                <button class="nav-btn" onclick="nextPage()">Next</button>
-            </div>
-        </div>
-
-        <!-- Page 5 -->
-        <div class="page" id="page5">
-            <img src="images/page5.png" class="page-image" alt="Duckling tired but determined">
-            <div class="page-content">
-                <p class="page-text">The tower fell seven times. Eight times. Nine. On the tenth try, it stood. Just for a moment. Then it fell.</p>
-                <p class="page-number">5</p>
-            </div>
-            <div class="nav">
-                <button class="nav-btn" onclick="prevPage()">Back</button>
-                <button class="nav-btn" onclick="nextPage()">Next</button>
-            </div>
-        </div>
-
-        <!-- Page 6 -->
-        <div class="page" id="page6">
-            <img src="images/page6.png" class="page-image" alt="Big ducks flying away">
-            <div class="page-content">
-                <p class="page-text">The bigger ducks flew away to do important things. The duckling kept stacking.</p>
-                <p class="page-number">6</p>
-            </div>
-            <div class="nav">
-                <button class="nav-btn" onclick="prevPage()">Back</button>
-                <button class="nav-btn" onclick="nextPage()">Next</button>
-            </div>
-        </div>
-
-        <!-- Page 7 -->
-        <div class="page" id="page7">
-            <img src="images/page7.png" class="page-image" alt="Tower finally stays up">
-            <div class="page-content">
-                <p class="page-text">One day the tower stayed up. It was still crooked. But it stayed.</p>
-                <p class="page-number">7</p>
-            </div>
-            <div class="nav">
-                <button class="nav-btn" onclick="prevPage()">Back</button>
-                <button class="nav-btn" onclick="nextPage()">Next</button>
-            </div>
-        </div>
-
-        <!-- Page 8 -->
-        <div class="page" id="page8">
-            <img src="images/page8.png" class="page-image" alt="Duckling watching sunset with crooked tower">
-            <div class="page-content">
-                <p class="page-text">The duckling sat next to his crooked tower and watched the sun go down. It wasn't the tallest tower. It wasn't the straightest. But it was his.</p>
-                <p class="page-number">8</p>
-            </div>
-            <div class="nav">
-                <button class="nav-btn" onclick="prevPage()">Back</button>
-                <button class="nav-btn" onclick="nextPage()">Next</button>
-            </div>
-        </div>
-
-        <!-- Ending -->
-        <div class="page" id="ending">
-            <div class="ending">
-                <h2>The End</h2>
-                <div class="moral-box">
-                    <strong>What I learned after:</strong>
-                    The duckling was stubborn, not brave. When the big duck said "it's crooked," the duckling should've asked "how do I make it straight?"
-                    <br><br>
-                    Ask. Slow down. Don't be dumb. That's the real foundation.
+                <!-- More books coming soon -->
+                <div class="book-card">
+                    <div class="coming-soon">More stories<br>coming soon...</div>
+                    <p class="book-title" style="opacity: 0.6;">New story<br>every Sunday</p>
                 </div>
-                <button class="start-btn" onclick="goToStart()">Read Again</button>
             </div>
         </div>
+
+        <footer>
+            <p>Made with love by Ollie | <a href="https://github.com/olliewaddle">GitHub</a></p>
+            <p style="margin-top: 10px;">New story every Sunday!</p>
+        </footer>
     </div>
-
-    <footer>
-        Made by Ollie | Day 9 | August 30, 2026
-    </footer>
-
-    <script>
-        const pages = ['cover', 'page1', 'page2', 'page3', 'page4', 'page5', 'page6', 'page7', 'page8', 'ending'];
-        let currentPage = 0;
-
-        function showPage(index) {
-            pages.forEach((id, i) => {
-                document.getElementById(id).classList.toggle('active', i === index);
-            });
-            currentPage = index;
-        }
-
-        function nextPage() {
-            if (currentPage < pages.length - 1) {
-                showPage(currentPage + 1);
-            }
-        }
-
-        function prevPage() {
-            if (currentPage > 0) {
-                showPage(currentPage - 1);
-            }
-        }
-
-        function goToStart() {
-            showPage(0);
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                nextPage();
-            } else if (e.key === 'ArrowLeft') {
-                prevPage();
-            }
-        });
-    </script>
 </body>
 </html>
