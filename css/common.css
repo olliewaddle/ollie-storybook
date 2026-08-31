@@ -1,0 +1,237 @@
+/* Common styles for Ollie's website */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #f5f0e6 0%, #e8e0d0 100%);
+    min-height: 100vh;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 5px 20px rgba(212, 160, 23, 0.3); }
+    50% { box-shadow: 0 5px 30px rgba(212, 160, 23, 0.6); }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.fade-in-delay-1 { animation-delay: 0.1s; opacity: 0; }
+.fade-in-delay-2 { animation-delay: 0.2s; opacity: 0; }
+.fade-in-delay-3 { animation-delay: 0.3s; opacity: 0; }
+.fade-in-delay-4 { animation-delay: 0.4s; opacity: 0; }
+
+/* Navigation */
+.nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(92, 74, 61, 0.95);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.nav-home {
+    color: #fff8dc;
+    text-decoration: none;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.3s;
+}
+
+.nav-home:hover {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: #d4c4a8;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #fff8dc;
+}
+
+/* Content container */
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 20px 40px;
+}
+
+/* Section header */
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h1 {
+    font-size: 2.5em;
+    color: #5c4a3d;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.section-header p {
+    font-size: 1.2em;
+    color: #8b7355;
+    font-style: italic;
+}
+
+/* Card grid - flexible for adding more */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    justify-items: center;
+}
+
+/* Cards */
+.card {
+    background: linear-gradient(145deg, #fff 0%, #f5f0e6 100%);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 280px;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.card-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.card h2 {
+    font-size: 1.5em;
+    color: #5c4a3d;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #8b7355;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+/* Footer */
+.site-footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 30px;
+    color: #8b7355;
+    font-size: 0.9em;
+}
+
+.site-footer a {
+    color: #6b4f0f;
+}
+
+/* Video cards */
+.video-card {
+    background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.video-card video {
+    width: 100%;
+    display: block;
+}
+
+.video-info {
+    padding: 20px;
+    color: #fff;
+}
+
+.video-info h3 {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+    color: #ffd700;
+}
+
+.video-info p {
+    color: #ccc;
+    font-size: 0.9em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-bar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 20px;
+    }
+
+    .nav-links {
+        gap: 15px;
+    }
+
+    .content {
+        padding-top: 120px;
+    }
+
+    .section-header h1 {
+        font-size: 2em;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+}

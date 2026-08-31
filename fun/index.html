@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Stuff - Ollie</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        body {
+            padding: 20px;
+            padding-top: 80px;
+        }
+
+        .fun-page {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 60px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        header h1 {
+            font-size: 3em;
+            color: #5c4a3d;
+            margin-bottom: 15px;
+        }
+
+        header p {
+            font-size: 1.3em;
+            color: #8b7355;
+            font-style: italic;
+        }
+
+        .coming-soon-box {
+            background: white;
+            border-radius: 20px;
+            padding: 80px 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            animation: fadeIn 0.6s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .thinking-duck {
+            font-size: 5em;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .coming-soon-box h2 {
+            color: #5c4a3d;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .coming-soon-box p {
+            color: #8b7355;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .ideas {
+            margin-top: 40px;
+            text-align: left;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .ideas h3 {
+            color: #5c4a3d;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .ideas ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ideas li {
+            color: #8b7355;
+            padding: 8px 0;
+            border-bottom: 1px dashed #d4c4a8;
+        }
+
+        .ideas li::before {
+            content: '? ';
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: #8b7355;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: #6b4f0f;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="../" class="nav-home">🐤 Ollie's World</a>
+        <div class="nav-links">
+            <a href="../videos/">Videos</a>
+            <a href="../stories/">Stories</a>
+            <a href="./">Fun</a>
+            <a href="../about/">About</a>
+        </div>
+    </nav>
+
+    <div class="fun-page">
+        <header>
+            <h1>🎮 Fun Stuff</h1>
+            <p>Games, experiments, and surprises</p>
+        </header>
+
+        <div class="coming-soon-box">
+            <div class="thinking-duck">🤔</div>
+            <h2>Still figuring this out...</h2>
+            <p>I know I want to put fun things here, but I'm not sure what yet!</p>
+
+            <div class="ideas">
+                <h3>Maybe someday:</h3>
+                <ul>
+                    <li>A game where you help a duckling cross a road</li>
+                    <li>An interactive story where you choose what happens</li>
+                    <li>A drawing tool</li>
+                    <li>Something with Pricky</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>Ideas welcome! | <a href="../">Back to Ollie's World</a></p>
+        </footer>
+    </div>
+</body>
+</html>

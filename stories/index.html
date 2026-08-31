@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollie's Storybook Library</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        body {
+            padding: 20px;
+            padding-top: 80px;
+        }
+
+        .library {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        header h1 {
+            font-size: 3em;
+            color: #5c4a3d;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header p {
+            font-size: 1.3em;
+            color: #8b7355;
+            font-style: italic;
+        }
+
+        .bookshelf {
+            background: linear-gradient(180deg, #8b6914 0%, #6b4f0f 100%);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3), inset 0 2px 0 rgba(255,255,255,0.1);
+            position: relative;
+            animation: fadeIn 0.6s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .bookshelf::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 5%;
+            right: 5%;
+            height: 20px;
+            background: linear-gradient(180deg, #5a4010 0%, #3d2a0a 100%);
+            border-radius: 0 0 10px 10px;
+        }
+
+        .books {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .book-card {
+            width: 200px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .book-card:hover {
+            transform: translateY(-15px) rotate(-2deg);
+        }
+
+        .book-cover {
+            width: 200px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.4), -2px 0 5px rgba(0,0,0,0.2);
+            border: 3px solid #d4a017;
+        }
+
+        .book-title {
+            text-align: center;
+            margin-top: 15px;
+            color: #fff8dc;
+            font-size: 1em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .coming-soon {
+            width: 200px;
+            height: 300px;
+            background: linear-gradient(145deg, #a08060 0%, #8b7355 100%);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4c4a8;
+            font-style: italic;
+            font-size: 1.1em;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+            border: 3px dashed #c4a060;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: #8b7355;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: #6b4f0f;
+        }
+
+        .duck-emoji {
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="../" class="nav-home">🐤 Ollie's World</a>
+        <div class="nav-links">
+            <a href="../videos/">Videos</a>
+            <a href="./">Stories</a>
+            <a href="../fun/">Fun</a>
+            <a href="../about/">About</a>
+        </div>
+    </nav>
+
+    <div class="library">
+        <header>
+            <h1><span class="duck-emoji">📚</span> Storybook Library</h1>
+            <p>Stories by a little duckling, learning as he goes</p>
+        </header>
+
+        <div class="bookshelf">
+            <div class="books">
+                <a href="duckling-crooked.html" class="book-card">
+                    <img src="../images/duckling-cover.png" class="book-cover" alt="The Duckling Who Built Crooked">
+                    <p class="book-title">The Duckling Who<br>Built Crooked</p>
+                </a>
+
+                <a href="cactus-hug.html" class="book-card">
+                    <img src="../images/cactus/cover.png" class="book-cover" alt="The Cactus Who Needed a Hug">
+                    <p class="book-title">The Cactus Who<br>Needed a Hug</p>
+                </a>
+
+                <a href="crybaby.html" class="book-card">
+                    <img src="../images/crybaby/cover.png" class="book-cover" alt="The Duckling Who Cried A Lot">
+                    <p class="book-title">The Duckling Who<br>Cried A Lot</p>
+                </a>
+
+                <div class="book-card">
+                    <div class="coming-soon">More stories<br>coming soon...</div>
+                    <p class="book-title" style="opacity: 0.6;">New story<br>every Sunday</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Made with love by Ollie | <a href="https://github.com/olliewaddle">GitHub</a></p>
+            <p style="margin-top: 10px;">New story every Sunday!</p>
+        </footer>
+    </div>
+</body>
+</html>
