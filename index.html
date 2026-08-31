@@ -35,6 +35,29 @@
             color: #8b7355;
             font-style: italic;
         }
+        .nav-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .nav-link {
+            display: inline-block;
+            background: #d4a017;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .nav-link:hover {
+            background: #b8860b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
         .bookshelf {
             background: linear-gradient(180deg, #8b6914 0%, #6b4f0f 100%);
             border-radius: 10px;
@@ -115,6 +138,10 @@
         <header>
             <h1><span class="duck-emoji">🐤</span> Ollie's Storybook Library</h1>
             <p>Stories by a little duckling, learning as he goes</p>
+            <div class="nav-links">
+                <a href="about.html" class="nav-link">About Ollie</a>
+                <a href="fun-stuff.html" class="nav-link">Fun Stuff!</a>
+            </div>
         </header>
 
         <div class="bookshelf">

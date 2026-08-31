@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Stuff! - Ollie's Storybook Library</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2e7d32;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            color: #2e7d32;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #4caf50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #c8e6c9;
+            padding-bottom: 10px;
+        }
+        .coloring-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .coloring-card {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 2px dashed #ccc;
+        }
+        .coloring-card img {
+            width: 100%;
+            max-width: 180px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        .coloring-card p {
+            margin-top: 10px;
+            color: #666;
+        }
+        .coloring-card a {
+            display: inline-block;
+            margin-top: 10px;
+            background: #4caf50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+        .coloring-card a:hover {
+            background: #388e3c;
+        }
+        .game {
+            background: #fff8e1;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        .game h3 {
+            color: #f57c00;
+            margin-bottom: 15px;
+        }
+        .game p {
+            color: #5c4a3d;
+            line-height: 1.8;
+        }
+        .word-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .word {
+            background: #ffcc80;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .word:hover {
+            transform: scale(1.1);
+            background: #ffb74d;
+        }
+        .riddle-box {
+            background: #e3f2fd;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        .riddle-box h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+        }
+        .riddle {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #64b5f6;
+        }
+        .riddle p {
+            color: #333;
+            font-size: 1.1em;
+        }
+        .riddle .answer {
+            color: #1976d2;
+            cursor: pointer;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        .answer-hidden {
+            background: #1976d2;
+            color: #1976d2 !important;
+            padding: 2px 8px;
+            border-radius: 5px;
+        }
+        .answer-hidden:hover {
+            background: transparent;
+            color: #1976d2 !important;
+        }
+        .counting-game {
+            background: #fce4ec;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .counting-game h3 {
+            color: #c2185b;
+            margin-bottom: 15px;
+        }
+        .ducks {
+            font-size: 3em;
+            margin: 20px 0;
+            letter-spacing: 10px;
+        }
+        .count-btn {
+            background: #e91e63;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .count-btn:hover {
+            background: #c2185b;
+        }
+        #duck-count {
+            font-size: 2em;
+            color: #c2185b;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Library</a>
+
+        <h1>Fun Stuff! 🎨🎮</h1>
+
+        <!-- Counting Game -->
+        <div class="section">
+            <h2>Count the Ducklings! 🐤</h2>
+            <div class="counting-game">
+                <h3>How many ducklings do you see?</h3>
+                <div class="ducks" id="duck-display">🐤🐤🐤</div>
+                <button class="count-btn" onclick="checkCount(1)">1</button>
+                <button class="count-btn" onclick="checkCount(2)">2</button>
+                <button class="count-btn" onclick="checkCount(3)">3</button>
+                <button class="count-btn" onclick="checkCount(4)">4</button>
+                <button class="count-btn" onclick="checkCount(5)">5</button>
+                <div id="duck-count"></div>
+                <button class="count-btn" onclick="newDucks()" style="background: #9c27b0; margin-top: 15px;">New Ducklings!</button>
+            </div>
+        </div>
+
+        <!-- Word Game -->
+        <div class="section">
+            <h2>Rhyme Time! 🎵</h2>
+            <div class="game">
+                <h3>Can you find words that rhyme with DUCK?</h3>
+                <p>Click on all the words that rhyme with "duck"!</p>
+                <div class="word-list">
+                    <span class="word" onclick="checkRhyme(this, true)">truck</span>
+                    <span class="word" onclick="checkRhyme(this, false)">dog</span>
+                    <span class="word" onclick="checkRhyme(this, true)">luck</span>
+                    <span class="word" onclick="checkRhyme(this, false)">cat</span>
+                    <span class="word" onclick="checkRhyme(this, true)">stuck</span>
+                    <span class="word" onclick="checkRhyme(this, false)">bird</span>
+                    <span class="word" onclick="checkRhyme(this, true)">yuck</span>
+                    <span class="word" onclick="checkRhyme(this, false)">pond</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Riddles -->
+        <div class="section">
+            <h2>Ollie's Riddles! 🤔</h2>
+            <div class="riddle-box">
+                <h3>Can you guess the answers?</h3>
+
+                <div class="riddle">
+                    <p>I'm yellow and fluffy, I say "quack quack quack".<br>I waddle to the pond and I waddle right back.<br>What am I?</p>
+                    <p class="answer">Answer: <span class="answer-hidden" onclick="this.classList.remove('answer-hidden')">A duckling!</span></p>
+                </div>
+
+                <div class="riddle">
+                    <p>I'm green and prickly, I live in the sand.<br>Don't hug me too hard - but I'll be your friend!<br>What am I?</p>
+                    <p class="answer">Answer: <span class="answer-hidden" onclick="this.classList.remove('answer-hidden')">A cactus!</span></p>
+                </div>
+
+                <div class="riddle">
+                    <p>I stack up high, then tumble down low.<br>Build me again - watch how tall I can grow!<br>What am I?</p>
+                    <p class="answer">Answer: <span class="answer-hidden" onclick="this.classList.remove('answer-hidden')">Building blocks!</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Drawing Activity -->
+        <div class="section">
+            <h2>Draw Along! ✏️</h2>
+            <div class="game">
+                <h3>How to Draw a Duckling:</h3>
+                <ol style="line-height: 2; color: #5c4a3d; margin-left: 20px;">
+                    <li>Draw a big circle for the body (like a fluffy ball!)</li>
+                    <li>Draw a smaller circle on top for the head</li>
+                    <li>Add a little orange triangle for the beak</li>
+                    <li>Draw two tiny dots for eyes</li>
+                    <li>Add little wing shapes on the sides</li>
+                    <li>Draw two tiny feet at the bottom</li>
+                    <li>Color it YELLOW! 🐤</li>
+                </ol>
+                <p style="margin-top: 15px; color: #888; font-style: italic;">
+                    Don't worry if it looks wobbly - Ollie's towers are crooked too and that's okay!
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentDucks = 3;
+
+        function newDucks() {
+            currentDucks = Math.floor(Math.random() * 5) + 1;
+            let duckStr = '';
+            for (let i = 0; i < currentDucks; i++) {
+                duckStr += '🐤';
+            }
+            document.getElementById('duck-display').textContent = duckStr;
+            document.getElementById('duck-count').textContent = '';
+        }
+
+        function checkCount(num) {
+            if (num === currentDucks) {
+                document.getElementById('duck-count').textContent = '🎉 YAY! That\'s right! 🎉';
+                document.getElementById('duck-count').style.color = '#4caf50';
+            } else {
+                document.getElementById('duck-count').textContent = 'Hmm, try counting again! 🤔';
+                document.getElementById('duck-count').style.color = '#f44336';
+            }
+        }
+
+        function checkRhyme(element, correct) {
+            if (correct) {
+                element.style.background = '#a5d6a7';
+                element.textContent = element.textContent + ' ✓';
+            } else {
+                element.style.background = '#ef9a9a';
+                setTimeout(() => {
+                    element.style.background = '#ffcc80';
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
