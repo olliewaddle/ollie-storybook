@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollie Saves Hedgie</title>
+    <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2c1810 0%, #1a0f0a 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Georgia', serif;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #f4d03f;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 2rem;
+        }
+
+        .book-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .book {
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .page {
+            background: #fffef5;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .page.cover {
+            background: linear-gradient(135deg, #f9d423 0%, #f5ab35 100%);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .page img {
+            width: 100%;
+            max-height: 70%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .page.cover img {
+            max-height: 90%;
+        }
+
+        .page-text {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #333;
+            text-align: center;
+            padding: 10px;
+            min-height: 80px;
+        }
+
+        .page-number {
+            font-size: 0.8rem;
+            color: #888;
+            text-align: center;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .controls button {
+            background: #f4d03f;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .controls button:hover {
+            background: #f5ab35;
+            transform: scale(1.05);
+        }
+
+        .hint {
+            color: #888;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.5rem; }
+            .page-text { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Ollie Saves Hedgie</h1>
+
+    <div class="book-container">
+        <div id="book" class="book"></div>
+    </div>
+
+    <div class="controls">
+        <button onclick="pageFlip.flipPrev()">Previous</button>
+        <button onclick="pageFlip.flipNext()">Next</button>
+    </div>
+
+    <p class="hint">Click or swipe to turn pages</p>
+
+    <script>
+        const pages = [
+            { img: "cover.png", text: "", isCover: true },
+            { img: "page-01-hedgie.png", text: "This is Hedgie the hedgehog. He loves to dig." },
+            { img: "page-02-ollie.png", text: "This is Ollie the duck. He loves to laugh... and staying dry. They are the best of friends." },
+            { img: "page-03-digging.png", text: "Hedgie dug for worms. He dug for bugs. He dug just to dig." },
+            { img: "page-04-laughing.png", text: '"Found one!" he\'d squeak, dirt on his nose. Ollie watched from the grass, laughing.' },
+            { img: "page-05-bigduck.png", text: 'A big duck with a shiny green head paddled past. "Come swim, little duck! The water\'s perfect!"' },
+            { img: "page-06-nervous.png", text: 'Ollie looked at the pond. It smelled like mud and old leaves. Deep. Cold. Scary. "Maybe later," he said.' },
+            { img: "page-07-scared.png", text: '"Scaredy duck!" the big duck laughed, splashing his wings. "I\'m NOT scared!" Ollie said.' },
+            { img: "page-08-bigduck-away.png", text: "He marched to the edge. Dipped in one toe— Oh no. I'll sink. I'll sink right to the bottom." },
+            { img: "page-09-flower.png", text: 'Ollie flapped back so fast his feathers puffed out. "Okay," he said quietly. "Maybe I am a little scared." The big duck shook his shiny head and swam away, still laughing.' },
+            { img: "page-10-splash.png", text: 'Hedgie sniffed along the rocks by the water. "Ooh, a flower!" He reached out— And slipped. SPLASH!' },
+            { img: "page-11-help.png", text: '"OLLIE! HELP!" Hedgie kicked and splashed. Hedgehogs can\'t swim. His little paws slapped the water but he kept sinking.' },
+            { img: "page-12-alone.png", text: "The big duck was gone. There was no one else." },
+            { img: "page-13-determined.png", text: "Just Ollie. Ollie stepped to the edge. He could do this. He HAD to—" },
+            { img: "page-14-stumbleback.png", text: "His legs locked. He stumbled back to the grass." },
+            { img: "page-15-lookingat.png", text: "He looked at Hedgie. Sinking." },
+            { img: "page-16-decision.png", text: "He looked at the water. Deep. Cold. Scary. He looked at Hedgie again. His best friend. His ONLY friend." },
+            { img: "page-17-jump.png", text: "Ollie jumped." },
+            { img: "page-18-underwater.png", text: "SPLASH! Under the water, everything was dark and cold. Ollie's legs kicked like crazy. Up up up up up—" },
+            { img: "page-19-surface.png", text: "He broke the surface, gasping." },
+            { img: "page-20-paddling.png", text: "Above the water, he looked calm. But below, his little legs spun so fast. Kick kick kick kick kick." },
+            { img: "page-21-spikes.png", text: "Hedgie's spikes poked up through the water, then his nose." },
+            { img: "page-22-grabon.png", text: '"Gr-grab on!" Ollie quacked, reaching. Hedgie grabbed his wing. His spikes prickled, but Ollie didn\'t let go.' },
+            { img: "page-23-kicking.png", text: "Kick. Kick. Kick. Ollie's legs burned. The shore looked so far." },
+            { img: "page-24-exhausted.png", text: "Hedgie was heavy. The water was cold. But he kept kicking." },
+            { img: "page-25-flopped.png", text: "They flopped onto the grass, breathing hard." },
+            { img: "page-26-relief.png", text: "Mud. Reeds. Solid ground. Ollie had never loved dirt so much." },
+            { img: "page-27-saved.png", text: '"You saved me," Hedgie whispered.' },
+            { img: "page-28-confession.png", text: '"I was so scared," Ollie said. "You didn\'t look scared." "I was paddling like CRAZY down there."' },
+            { img: "page-29-hug.png", text: "Hedgie hugged him—carefully, because spikes." },
+            { img: "page-30-thankyou.png", text: '"Thank you," he said. "For jumping anyway."' },
+            { img: "page-31-grass.png", text: "And they lay in the warm grass until their hearts stopped racing." },
+            { img: "page-32-theend.png", text: "THE END", isCover: true }
+        ];
+
+        const bookEl = document.getElementById('book');
+
+        // Create page elements
+        pages.forEach((page, i) => {
+            const div = document.createElement('div');
+            div.className = page.isCover ? 'page cover' : 'page';
+
+            const img = document.createElement('img');
+            img.src = page.img;
+            img.alt = `Page ${i}`;
+            div.appendChild(img);
+
+            if (page.text && !page.isCover) {
+                const text = document.createElement('div');
+                text.className = 'page-text';
+                text.textContent = page.text;
+                div.appendChild(text);
+            }
+
+            if (!page.isCover && i > 0 && i < pages.length - 1) {
+                const num = document.createElement('div');
+                num.className = 'page-number';
+                num.textContent = i;
+                div.appendChild(num);
+            }
+
+            bookEl.appendChild(div);
+        });
+
+        // Initialize PageFlip
+        const pageFlip = new St.PageFlip(bookEl, {
+            width: 400,
+            height: 550,
+            size: "stretch",
+            minWidth: 300,
+            maxWidth: 600,
+            minHeight: 400,
+            maxHeight: 800,
+            showCover: true,
+            mobileScrollSupport: false,
+            swipeDistance: 30,
+            flippingTime: 800,
+            useMouseEvents: true
+        });
+
+        pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+    </script>
+</body>
+</html>
