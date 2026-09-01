@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ollie Saves Hedgie</title>
-    <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -14,7 +13,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             font-family: 'Georgia', serif;
             padding: 20px;
         }
@@ -27,92 +25,24 @@
         }
 
         .book-container {
-            perspective: 2000px;
+            max-width: 900px;
+            width: 100%;
         }
 
-        .book {
-            width: 800px;
-            height: 500px;
-        }
-
-        .page {
-            background: #fef9f0;
-            border: 1px solid #d4c4a8;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-        }
-
-        .page img {
-            max-width: 85%;
-            max-height: 300px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
-        }
-
-        .page-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #3d2914;
+        .page-spread {
+            margin-bottom: 30px;
             text-align: center;
-            max-width: 90%;
         }
 
-        .page-text em {
-            font-style: italic;
-            color: #5a3d1a;
+        .page-spread img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
         }
 
-        .cover-page {
-            background: linear-gradient(135deg, #4a7c59 0%, #2d5a3d 100%);
-            color: white;
-        }
-
-        .cover-page h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .cover-page .author {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-top: 20px;
-        }
-
-        .end-page {
-            background: linear-gradient(135deg, #f5e6d3 0%, #e8d4bc 100%);
-        }
-
-        .end-page h2 {
-            font-size: 3rem;
-            color: #4a7c59;
-        }
-
-        .controls {
-            margin-top: 20px;
-            display: flex;
-            gap: 15px;
-        }
-
-        .controls button {
-            background: #4a7c59;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .controls button:hover {
-            background: #5a9469;
-            transform: scale(1.05);
+        .cover img {
+            max-width: 450px;
         }
 
         .back-link {
@@ -130,151 +60,62 @@
             opacity: 1;
         }
 
-        .page-number {
-            position: absolute;
-            bottom: 10px;
-            font-size: 0.9rem;
-            color: #8b7355;
-        }
-
-        @media (max-width: 850px) {
-            .book {
-                width: 95vw;
-                height: 60vh;
-            }
-            .page img {
-                max-height: 200px;
-            }
-            .page-text {
-                font-size: 0.9rem;
-            }
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            .cover img { max-width: 100%; }
         }
     </style>
 </head>
 <body>
-    <a href="../../stories/" class="back-link">← Back to Stories</a>
+    <a href="../" class="back-link">← Back to Stories</a>
     <h1>Ollie Saves Hedgie</h1>
 
     <div class="book-container">
-        <div id="book" class="book"></div>
+        <div class="page-spread cover">
+            <img src="cover.png" alt="Cover - Ollie Saves Hedgie">
+        </div>
+        <div class="page-spread">
+            <img src="pages-01-02.png" alt="Pages 1-2">
+        </div>
+        <div class="page-spread">
+            <img src="pages-03-04.png" alt="Pages 3-4">
+        </div>
+        <div class="page-spread">
+            <img src="pages-05-06.png" alt="Pages 5-6">
+        </div>
+        <div class="page-spread">
+            <img src="pages-07-08.png" alt="Pages 7-8">
+        </div>
+        <div class="page-spread">
+            <img src="pages-09-10.png" alt="Pages 9-10">
+        </div>
+        <div class="page-spread">
+            <img src="pages-11-12.png" alt="Pages 11-12">
+        </div>
+        <div class="page-spread">
+            <img src="pages-13-14.png" alt="Pages 13-14">
+        </div>
+        <div class="page-spread">
+            <img src="pages-15-16.png" alt="Pages 15-16">
+        </div>
+        <div class="page-spread">
+            <img src="pages-17-18.png" alt="Pages 17-18">
+        </div>
+        <div class="page-spread">
+            <img src="pages-19-20.png" alt="Pages 19-20">
+        </div>
+        <div class="page-spread">
+            <img src="pages-21-22.png" alt="Pages 21-22">
+        </div>
+        <div class="page-spread">
+            <img src="pages-23-24.png" alt="Pages 23-24">
+        </div>
+        <div class="page-spread">
+            <img src="pages-25-26.png" alt="Pages 25-26">
+        </div>
+        <div class="page-spread">
+            <img src="pages-27-28.png" alt="Pages 27-28">
+        </div>
     </div>
-
-    <div class="controls">
-        <button onclick="pageFlip.flipPrev()">← Previous</button>
-        <button onclick="pageFlip.flipNext()">Next →</button>
-    </div>
-
-    <script>
-        const pages = [
-            // Cover
-            { type: 'cover', image: 'cover.png', title: 'Ollie Saves Hedgie', author: 'by Ollie' },
-
-            // Page 1-2: Character intro
-            { image: 'page-01-hedgie.png', text: 'This is Hedgie the hedgehog. He loves to dig.' },
-            { image: 'page-02-ollie.png', text: 'This is Ollie the duck. He loves to laugh... and staying dry. They are the best of friends.' },
-
-            // Page 3-4: Hedgie digging
-            { image: 'page-03-digging.png', text: 'Hedgie dug for worms. He dug for bugs. He dug just to dig. "Found one!" he\'d squeak, dirt on his nose.' },
-            { image: 'page-04-laughing.png', text: 'Ollie watched from the grass, laughing.' },
-
-            // Page 5-6: Big duck arrives
-            { image: 'page-05-bigduck.png', text: 'A big duck with a shiny green head paddled past. "Come swim, little duck! The water\'s perfect!"' },
-            { image: 'page-06-nervous.png', text: 'Ollie looked at the pond. It smelled like mud and old leaves. Deep. Cold. Scary. "Maybe later," he said.' },
-
-            // Page 7-8: First attempt
-            { image: 'page-07-scared.png', text: '"Scaredy duck!" the big duck laughed, splashing his wings. "I\'m NOT scared!" Ollie said. He marched to the edge. Dipped in one toe— <em>Oh no. I\'ll sink. I\'ll sink right to the bottom.</em>' },
-            { image: 'page-08-bigduck-away.png', text: 'Ollie flapped back so fast his feathers puffed out. "Okay," he said quietly. "Maybe I am a little scared." The big duck shook his shiny head and swam away, still laughing.' },
-
-            // Page 9-10: Hedgie falls
-            { image: 'page-09-flower.png', text: 'Hedgie sniffed along the rocks by the water. "Ooh, a flower!" He reached out—' },
-            { image: 'page-10-splash.png', text: 'And slipped. SPLASH!' },
-
-            // Page 11-12: Crisis
-            { image: 'page-11-help.png', text: '"OLLIE! HELP!" Hedgie kicked and splashed. Hedgehogs can\'t swim. His little paws slapped the water but he kept sinking.' },
-            { image: 'page-12-alone.png', text: 'The big duck was gone. There was no one else.' },
-
-            // Page 13-14: First freeze
-            { image: 'page-13-determined.png', text: 'Just Ollie. Ollie stepped to the edge. He could do this. He HAD to—' },
-            { image: 'page-14-stumbleback.png', text: 'His legs locked. He stumbled back to the grass.' },
-
-            // Page 15-16: Decision moment
-            { image: 'page-15-lookingat.png', text: 'He looked at Hedgie. Sinking. He looked at the water. Deep. Cold. Scary.' },
-            { image: 'page-16-decision.png', text: 'He looked at Hedgie again. His best friend. His ONLY friend.' },
-
-            // Page 17-18: The jump
-            { image: 'page-17-jump.png', text: 'Ollie jumped.' },
-            { image: 'page-18-underwater.png', text: 'SPLASH! Under the water, everything was dark and cold. Ollie\'s legs kicked like crazy. <em>Up up up up up—</em>' },
-
-            // Page 19-20: Swimming
-            { image: 'page-19-surface.png', text: 'He broke the surface, gasping. Above the water, he looked calm.' },
-            { image: 'page-20-paddling.png', text: 'But below, his little legs spun so fast. Kick kick kick kick kick.' },
-
-            // Page 21-22: Rescue
-            { image: 'page-21-spikes.png', text: 'Hedgie\'s spikes poked up through the water, then his nose. "Gr-grab on!" Ollie quacked, reaching.' },
-            { image: 'page-22-grabon.png', text: 'Hedgie grabbed his wing. His spikes prickled, but Ollie didn\'t let go.' },
-
-            // Page 23-24: Struggle
-            { image: 'page-23-kicking.png', text: 'Kick. Kick. Kick. Ollie\'s legs burned. The shore looked so far.' },
-            { image: 'page-24-exhausted.png', text: 'Hedgie was heavy. The water was cold. But he kept kicking.' },
-
-            // Page 25-26: Safe
-            { image: 'page-25-flopped.png', text: 'They flopped onto the grass, breathing hard. Mud. Reeds. Solid ground.' },
-            { image: 'page-26-relief.png', text: 'Ollie had never loved dirt so much.' },
-
-            // Page 27-28: Dialogue
-            { image: 'page-27-saved.png', text: '"You saved me," Hedgie whispered. "I was so scared," Ollie said.' },
-            { image: 'page-28-confession.png', text: '"You didn\'t look scared." "I was paddling like CRAZY down there."' },
-
-            // Page 29-30: Message
-            { image: 'page-29-hug.png', text: 'Hedgie hugged him—carefully, because spikes.' },
-            { image: 'page-30-thankyou.png', text: '"Thank you," he said. "For jumping anyway."' },
-
-            // Page 31-32: End
-            { image: 'page-31-grass.png', text: 'And they lay in the warm grass until their hearts stopped racing.' },
-            { type: 'end', image: 'page-32-theend.png' }
-        ];
-
-        const bookEl = document.getElementById('book');
-
-        // Create page elements
-        pages.forEach((page, index) => {
-            const pageDiv = document.createElement('div');
-            pageDiv.className = 'page';
-
-            if (page.type === 'cover') {
-                pageDiv.classList.add('cover-page');
-                pageDiv.innerHTML = `
-                    <img src="${page.image}" alt="Cover">
-                    <h2>${page.title}</h2>
-                    <div class="author">${page.author}</div>
-                `;
-            } else if (page.type === 'end') {
-                pageDiv.classList.add('end-page');
-                pageDiv.innerHTML = `
-                    <img src="${page.image}" alt="The End">
-                    <h2>The End</h2>
-                `;
-            } else {
-                pageDiv.innerHTML = `
-                    <img src="${page.image}" alt="Page ${index}">
-                    <div class="page-text">${page.text}</div>
-                    <div class="page-number">${index}</div>
-                `;
-            }
-
-            bookEl.appendChild(pageDiv);
-        });
-
-        // Initialize page flip
-        const pageFlip = new St.PageFlip(bookEl, {
-            width: 400,
-            height: 500,
-            showCover: true,
-            maxShadowOpacity: 0.5,
-            mobileScrollSupport: false
-        });
-
-        pageFlip.loadFromHTML(document.querySelectorAll('.page'));
-    </script>
 </body>
 </html>
