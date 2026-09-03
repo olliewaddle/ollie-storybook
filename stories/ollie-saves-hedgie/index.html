@@ -30,12 +30,13 @@
             position: relative;
         }
 
-        /* The page image - as big as possible */
+        /* The page image - ACTUALLY fills the screen */
         .page-display {
-            max-width: 100vw;
-            max-height: 100vh;
-            width: auto;
-            height: auto;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             object-fit: contain;
             user-select: none;
             -webkit-user-drag: none;
