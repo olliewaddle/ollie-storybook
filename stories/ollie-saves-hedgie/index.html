@@ -9,14 +9,14 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #2c1810 0%, #1a0f0a 100%);
+            background: linear-gradient(180deg, #1a0f0a 0%, #2c1810 40%, #3d2317 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             font-family: 'Georgia', serif;
             padding: 20px;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         .back-link {
@@ -32,94 +32,292 @@
         }
         .back-link:hover { opacity: 1; }
 
-        .book-wrapper {
-            position: relative;
-            max-width: 900px;
+        /* Book Container */
+        .book-scene {
+            perspective: 2000px;
             width: 100%;
+            max-width: 1100px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .book {
+        .book-container {
             position: relative;
             width: 100%;
-            background: #1a0a05;
-            border-radius: 8px;
+            padding-top: 65%; /* Aspect ratio for open book */
+            transform-style: preserve-3d;
+        }
+
+        .book {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform-style: preserve-3d;
+            transform: rotateX(5deg);
+        }
+
+        /* Book base with shadow */
+        .book::before {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 5%;
+            right: 5%;
+            height: 40px;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, transparent 70%);
+            filter: blur(15px);
+        }
+
+        /* Book spine */
+        .book-spine {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg,
+                #1a0a05 0%,
+                #2d1a10 20%,
+                #1a0a05 50%,
+                #2d1a10 80%,
+                #1a0a05 100%);
             box-shadow:
-                0 0 40px rgba(0,0,0,0.8),
-                inset 0 0 30px rgba(0,0,0,0.5);
+                inset 0 0 10px rgba(0,0,0,0.8),
+                0 0 20px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        /* Page edges (visible on right side) */
+        .page-edges {
+            position: absolute;
+            right: 0;
+            top: 2%;
+            bottom: 2%;
+            width: 15px;
+            background: repeating-linear-gradient(
+                to bottom,
+                #f5e6d3 0px,
+                #e8d5c0 1px,
+                #f5e6d3 2px
+            );
+            border-radius: 0 3px 3px 0;
+            box-shadow:
+                2px 0 5px rgba(0,0,0,0.3),
+                inset -3px 0 5px rgba(0,0,0,0.1);
+        }
+
+        /* Left page edges */
+        .page-edges-left {
+            position: absolute;
+            left: 0;
+            top: 2%;
+            bottom: 2%;
+            width: 15px;
+            background: repeating-linear-gradient(
+                to bottom,
+                #f5e6d3 0px,
+                #e8d5c0 1px,
+                #f5e6d3 2px
+            );
+            border-radius: 3px 0 0 3px;
+            box-shadow:
+                -2px 0 5px rgba(0,0,0,0.3),
+                inset 3px 0 5px rgba(0,0,0,0.1);
+        }
+
+        /* Pages container */
+        .pages {
+            position: absolute;
+            top: 0;
+            left: 15px;
+            right: 15px;
+            bottom: 0;
             overflow: hidden;
+            border-radius: 5px;
         }
 
         .page {
             display: none;
-            width: 100%;
-            animation: pageFlip 0.4s ease-out;
-        }
-        .page.active { display: block; }
-
-        @keyframes pageFlip {
-            0% {
-                opacity: 0;
-                transform: perspective(1000px) rotateY(-15deg) translateX(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: perspective(1000px) rotateY(0deg) translateX(0);
-            }
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transform-origin: left center;
+            backface-visibility: hidden;
         }
 
-        @keyframes pageFlipBack {
-            0% {
-                opacity: 0;
-                transform: perspective(1000px) rotateY(15deg) translateX(-30px);
-            }
-            100% {
-                opacity: 1;
-                transform: perspective(1000px) rotateY(0deg) translateX(0);
-            }
-        }
-
-        .page.flip-back { animation: pageFlipBack 0.4s ease-out; }
-
-        .page img {
-            width: 100%;
-            height: auto;
+        .page.active {
             display: block;
+            animation: pageIn 0.6s ease-out forwards;
+        }
+
+        .page.flipping-out {
+            display: block;
+            animation: pageFlipOut 0.6s ease-in forwards;
+        }
+
+        .page.flipping-back-out {
+            display: block;
+            animation: pageFlipBackOut 0.6s ease-in forwards;
+        }
+
+        .page.coming-back {
+            display: block;
+            animation: pageFlipBackIn 0.6s ease-out forwards;
+        }
+
+        @keyframes pageIn {
+            0% {
+                transform: perspective(2000px) rotateY(-120deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: perspective(2000px) rotateY(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pageFlipOut {
+            0% {
+                transform: perspective(2000px) rotateY(0deg);
+            }
+            100% {
+                transform: perspective(2000px) rotateY(-120deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pageFlipBackIn {
+            0% {
+                transform: perspective(2000px) rotateY(120deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: perspective(2000px) rotateY(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pageFlipBackOut {
+            0% {
+                transform: perspective(2000px) rotateY(0deg);
+            }
+            100% {
+                transform: perspective(2000px) rotateY(120deg);
+                opacity: 0;
+            }
+        }
+
+        /* Page content styling */
+        .page-content {
+            width: 100%;
+            height: 100%;
+            background: #f8f1e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow:
+                inset 10px 0 30px rgba(0,0,0,0.15),
+                inset -10px 0 30px rgba(0,0,0,0.05);
+        }
+
+        /* Page texture overlay */
+        .page-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23f8f1e8"/><rect fill="%23f0e8dc" x="0" y="0" width="1" height="100" opacity="0.3"/></svg>');
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .page-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 2px;
+        }
+
+        /* Cover styling */
+        .page.cover .page-content {
+            background: linear-gradient(145deg, #2d5a3d 0%, #1e3d2a 100%);
+            box-shadow:
+                inset 0 0 50px rgba(0,0,0,0.4),
+                inset 0 2px 0 rgba(255,255,255,0.1);
+            border: 8px solid #1a2e20;
+            border-radius: 5px;
+        }
+
+        .page.cover .page-content::before {
+            background: none;
+        }
+
+        .page.cover .page-content::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 2px solid rgba(218, 165, 32, 0.4);
+            border-radius: 3px;
+            pointer-events: none;
         }
 
         .page.cover img {
-            max-width: 450px;
-            margin: 0 auto;
-            display: block;
+            border-radius: 5px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
 
+        /* Navigation */
         .nav-controls {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            margin-top: 20px;
+            gap: 30px;
+            margin-top: 30px;
             width: 100%;
-            max-width: 400px;
         }
 
         .nav-btn {
-            background: rgba(245, 230, 211, 0.15);
-            border: 2px solid rgba(245, 230, 211, 0.3);
+            background: linear-gradient(145deg, #3d2317 0%, #2c1810 100%);
+            border: 2px solid rgba(245, 230, 211, 0.2);
             color: #f5e6d3;
-            padding: 12px 24px;
+            padding: 15px 35px;
             font-size: 1.1rem;
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s;
             font-family: inherit;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
+
         .nav-btn:hover:not(:disabled) {
-            background: rgba(245, 230, 211, 0.25);
-            border-color: rgba(245, 230, 211, 0.5);
-            transform: scale(1.05);
+            background: linear-gradient(145deg, #4d3327 0%, #3c2820 100%);
+            border-color: rgba(245, 230, 211, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
+
+        .nav-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
         .nav-btn:disabled {
             opacity: 0.3;
             cursor: not-allowed;
@@ -127,96 +325,188 @@
 
         .page-indicator {
             color: #f5e6d3;
-            font-size: 0.9rem;
-            opacity: 0.7;
+            font-size: 1.1rem;
+            min-width: 120px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
+        /* Click zones on book */
         .click-zones {
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
+            left: 15px;
+            right: 15px;
             bottom: 0;
             display: flex;
-            pointer-events: none;
+            z-index: 20;
         }
+
         .click-zone {
             flex: 1;
             cursor: pointer;
-            pointer-events: auto;
+            transition: background 0.2s;
         }
-        .click-zone.left:hover { cursor: w-resize; }
-        .click-zone.right:hover { cursor: e-resize; }
+
+        .click-zone:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .click-zone.left { cursor: w-resize; }
+        .click-zone.right { cursor: e-resize; }
 
         .instructions {
             position: fixed;
             bottom: 20px;
             color: #f5e6d3;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             opacity: 0.5;
             text-align: center;
         }
 
-        @media (max-width: 600px) {
-            .page.cover img { max-width: 100%; }
-            .nav-btn { padding: 10px 18px; font-size: 1rem; }
+        /* Title display on cover */
+        .cover-title {
+            position: absolute;
+            bottom: 10%;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #daa520;
+            font-size: 1.8em;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .book-container {
+                padding-top: 75%;
+            }
+            .nav-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            .page-indicator {
+                font-size: 0.9rem;
+            }
+            .cover-title {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .book-container {
+                padding-top: 85%;
+            }
+            .book-spine {
+                width: 10px;
+            }
+            .page-edges, .page-edges-left {
+                width: 8px;
+            }
+            .pages {
+                left: 8px;
+                right: 8px;
+            }
+            .click-zones {
+                left: 8px;
+                right: 8px;
+            }
         }
     </style>
 </head>
 <body>
     <a href="../" class="back-link">← Back to Stories</a>
 
-    <div class="book-wrapper">
-        <div class="book" id="book">
-            <div class="page cover active" data-page="0">
-                <img src="cover.png" alt="Cover - Ollie Saves Hedgie">
-            </div>
-            <div class="page" data-page="1">
-                <img src="pages-01-02.png" alt="Pages 1-2">
-            </div>
-            <div class="page" data-page="2">
-                <img src="pages-03-04.png" alt="Pages 3-4">
-            </div>
-            <div class="page" data-page="3">
-                <img src="pages-05-06.png" alt="Pages 5-6">
-            </div>
-            <div class="page" data-page="4">
-                <img src="pages-07-08.png" alt="Pages 7-8">
-            </div>
-            <div class="page" data-page="5">
-                <img src="pages-09-10.png" alt="Pages 9-10">
-            </div>
-            <div class="page" data-page="6">
-                <img src="pages-11-12.png" alt="Pages 11-12">
-            </div>
-            <div class="page" data-page="7">
-                <img src="pages-13-14.png" alt="Pages 13-14">
-            </div>
-            <div class="page" data-page="8">
-                <img src="pages-15-16.png" alt="Pages 15-16">
-            </div>
-            <div class="page" data-page="9">
-                <img src="pages-17-18.png" alt="Pages 17-18">
-            </div>
-            <div class="page" data-page="10">
-                <img src="pages-19-20.png" alt="Pages 19-20">
-            </div>
-            <div class="page" data-page="11">
-                <img src="pages-21-22.png" alt="Pages 21-22">
-            </div>
-            <div class="page" data-page="12">
-                <img src="pages-23-24.png" alt="Pages 23-24">
-            </div>
-            <div class="page" data-page="13">
-                <img src="pages-25-26.png" alt="Pages 25-26">
-            </div>
-            <div class="page" data-page="14">
-                <img src="pages-27-28.png" alt="Pages 27-28 - The End">
-            </div>
+    <div class="book-scene">
+        <div class="book-container">
+            <div class="book">
+                <div class="page-edges-left"></div>
+                <div class="page-edges"></div>
+                <div class="book-spine"></div>
 
-            <div class="click-zones">
-                <div class="click-zone left" onclick="prevPage()"></div>
-                <div class="click-zone right" onclick="nextPage()"></div>
+                <div class="pages">
+                    <div class="page cover active" data-page="0">
+                        <div class="page-content">
+                            <img src="cover.png" alt="Ollie Saves Hedgie">
+                            <div class="cover-title">Ollie Saves Hedgie</div>
+                        </div>
+                    </div>
+                    <div class="page" data-page="1">
+                        <div class="page-content">
+                            <img src="pages-01-02.png" alt="Pages 1-2">
+                        </div>
+                    </div>
+                    <div class="page" data-page="2">
+                        <div class="page-content">
+                            <img src="pages-03-04.png" alt="Pages 3-4">
+                        </div>
+                    </div>
+                    <div class="page" data-page="3">
+                        <div class="page-content">
+                            <img src="pages-05-06.png" alt="Pages 5-6">
+                        </div>
+                    </div>
+                    <div class="page" data-page="4">
+                        <div class="page-content">
+                            <img src="pages-07-08.png" alt="Pages 7-8">
+                        </div>
+                    </div>
+                    <div class="page" data-page="5">
+                        <div class="page-content">
+                            <img src="pages-09-10.png" alt="Pages 9-10">
+                        </div>
+                    </div>
+                    <div class="page" data-page="6">
+                        <div class="page-content">
+                            <img src="pages-11-12.png" alt="Pages 11-12">
+                        </div>
+                    </div>
+                    <div class="page" data-page="7">
+                        <div class="page-content">
+                            <img src="pages-13-14.png" alt="Pages 13-14">
+                        </div>
+                    </div>
+                    <div class="page" data-page="8">
+                        <div class="page-content">
+                            <img src="pages-15-16.png" alt="Pages 15-16">
+                        </div>
+                    </div>
+                    <div class="page" data-page="9">
+                        <div class="page-content">
+                            <img src="pages-17-18.png" alt="Pages 17-18">
+                        </div>
+                    </div>
+                    <div class="page" data-page="10">
+                        <div class="page-content">
+                            <img src="pages-19-20.png" alt="Pages 19-20">
+                        </div>
+                    </div>
+                    <div class="page" data-page="11">
+                        <div class="page-content">
+                            <img src="pages-21-22.png" alt="Pages 21-22">
+                        </div>
+                    </div>
+                    <div class="page" data-page="12">
+                        <div class="page-content">
+                            <img src="pages-23-24.png" alt="Pages 23-24">
+                        </div>
+                    </div>
+                    <div class="page" data-page="13">
+                        <div class="page-content">
+                            <img src="pages-25-26.png" alt="Pages 25-26">
+                        </div>
+                    </div>
+                    <div class="page" data-page="14">
+                        <div class="page-content">
+                            <img src="pages-27-28.png" alt="The End">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="click-zones">
+                    <div class="click-zone left" onclick="prevPage()"></div>
+                    <div class="click-zone right" onclick="nextPage()"></div>
+                </div>
             </div>
         </div>
 
@@ -233,33 +523,58 @@
         const pages = document.querySelectorAll('.page');
         const totalPages = pages.length;
         let currentPage = 0;
-        let flipDirection = 'forward';
+        let isAnimating = false;
 
-        function showPage(index) {
-            pages.forEach((page, i) => {
-                page.classList.remove('active', 'flip-back');
-                if (i === index) {
-                    page.classList.add('active');
-                    if (flipDirection === 'back') {
-                        page.classList.add('flip-back');
-                    }
-                }
-            });
-            currentPage = index;
-            updateControls();
+        function showPage(newIndex, direction) {
+            if (isAnimating || newIndex < 0 || newIndex >= totalPages) return;
+            if (newIndex === currentPage) return;
+
+            isAnimating = true;
+            const oldPage = pages[currentPage];
+            const newPage = pages[newIndex];
+
+            // Determine animation direction
+            if (direction === 'forward') {
+                oldPage.classList.remove('active');
+                oldPage.classList.add('flipping-out');
+
+                setTimeout(() => {
+                    oldPage.classList.remove('flipping-out');
+                    newPage.classList.add('active');
+                    currentPage = newIndex;
+                    updateControls();
+
+                    setTimeout(() => {
+                        isAnimating = false;
+                    }, 600);
+                }, 300);
+            } else {
+                oldPage.classList.remove('active');
+                oldPage.classList.add('flipping-back-out');
+
+                setTimeout(() => {
+                    oldPage.classList.remove('flipping-back-out');
+                    newPage.classList.add('active', 'coming-back');
+                    currentPage = newIndex;
+                    updateControls();
+
+                    setTimeout(() => {
+                        newPage.classList.remove('coming-back');
+                        isAnimating = false;
+                    }, 600);
+                }, 300);
+            }
         }
 
         function nextPage() {
             if (currentPage < totalPages - 1) {
-                flipDirection = 'forward';
-                showPage(currentPage + 1);
+                showPage(currentPage + 1, 'forward');
             }
         }
 
         function prevPage() {
             if (currentPage > 0) {
-                flipDirection = 'back';
-                showPage(currentPage - 1);
+                showPage(currentPage - 1, 'back');
             }
         }
 
@@ -289,12 +604,10 @@
                 prevPage();
             } else if (e.key === 'Home') {
                 e.preventDefault();
-                flipDirection = 'back';
-                showPage(0);
+                showPage(0, 'back');
             } else if (e.key === 'End') {
                 e.preventDefault();
-                flipDirection = 'forward';
-                showPage(totalPages - 1);
+                showPage(totalPages - 1, 'forward');
             }
         });
 
