@@ -1,0 +1,25 @@
+{
+  "name": "ollie-storybook",
+  "version": "1.0.0",
+  "description": "My stories website! All my books and videos live here.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olliewaddle/ollie-storybook.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olliewaddle/ollie-storybook/issues"
+  },
+  "homepage": "https://github.com/olliewaddle/ollie-storybook#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "http-server": "^14.1.1",
+    "playwright": "^1.62.1"
+  }
+}
