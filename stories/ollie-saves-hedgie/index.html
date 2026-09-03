@@ -30,14 +30,15 @@
             position: relative;
         }
 
-        /* The page image - ACTUALLY fills the screen */
+        /* The page image - fills screen height, crops sides if needed */
         .page-display {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            object-fit: contain;
+            object-fit: cover;
+            object-position: center center;
             user-select: none;
             -webkit-user-drag: none;
         }
@@ -217,20 +218,34 @@
     <script>
         const pages = [
             'cover.png',
-            'pages-01-02.png',
-            'pages-03-04.png',
-            'pages-05-06.png',
-            'pages-07-08.png',
-            'pages-09-10.png',
-            'pages-11-12.png',
-            'pages-13-14.png',
-            'pages-15-16.png',
-            'pages-17-18.png',
-            'pages-19-20.png',
-            'pages-21-22.png',
-            'pages-23-24.png',
-            'pages-25-26.png',
-            'pages-27-28.png'
+            'single-pages/page-01.png',
+            'single-pages/page-02.png',
+            'single-pages/page-03.png',
+            'single-pages/page-04.png',
+            'single-pages/page-05.png',
+            'single-pages/page-06.png',
+            'single-pages/page-07.png',
+            'single-pages/page-08.png',
+            'single-pages/page-09.png',
+            'single-pages/page-10.png',
+            'single-pages/page-11.png',
+            'single-pages/page-12.png',
+            'single-pages/page-13.png',
+            'single-pages/page-14.png',
+            'single-pages/page-15.png',
+            'single-pages/page-16.png',
+            'single-pages/page-17.png',
+            'single-pages/page-18.png',
+            'single-pages/page-19.png',
+            'single-pages/page-20.png',
+            'single-pages/page-21.png',
+            'single-pages/page-22.png',
+            'single-pages/page-23.png',
+            'single-pages/page-24.png',
+            'single-pages/page-25.png',
+            'single-pages/page-26.png',
+            'single-pages/page-27.png',
+            'single-pages/page-28.png'
         ];
 
         let currentPage = 0;
