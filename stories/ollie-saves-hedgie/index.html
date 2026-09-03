@@ -13,36 +13,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             font-family: 'Georgia', serif;
             padding: 20px;
-        }
-
-        h1 {
-            color: #f5e6d3;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .book-container {
-            max-width: 900px;
-            width: 100%;
-        }
-
-        .page-spread {
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .page-spread img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-        }
-
-        .cover img {
-            max-width: 450px;
+            overflow: hidden;
         }
 
         .back-link {
@@ -52,70 +26,279 @@
             color: #f5e6d3;
             text-decoration: none;
             font-size: 1rem;
-            opacity: 0.8;
+            opacity: 0.7;
             transition: opacity 0.3s;
+            z-index: 100;
+        }
+        .back-link:hover { opacity: 1; }
+
+        .book-wrapper {
+            position: relative;
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .back-link:hover {
-            opacity: 1;
+        .book {
+            position: relative;
+            width: 100%;
+            background: #1a0a05;
+            border-radius: 8px;
+            box-shadow:
+                0 0 40px rgba(0,0,0,0.8),
+                inset 0 0 30px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        .page {
+            display: none;
+            width: 100%;
+            animation: pageFlip 0.4s ease-out;
+        }
+        .page.active { display: block; }
+
+        @keyframes pageFlip {
+            0% {
+                opacity: 0;
+                transform: perspective(1000px) rotateY(-15deg) translateX(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: perspective(1000px) rotateY(0deg) translateX(0);
+            }
+        }
+
+        @keyframes pageFlipBack {
+            0% {
+                opacity: 0;
+                transform: perspective(1000px) rotateY(15deg) translateX(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: perspective(1000px) rotateY(0deg) translateX(0);
+            }
+        }
+
+        .page.flip-back { animation: pageFlipBack 0.4s ease-out; }
+
+        .page img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .page.cover img {
+            max-width: 450px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .nav-btn {
+            background: rgba(245, 230, 211, 0.15);
+            border: 2px solid rgba(245, 230, 211, 0.3);
+            color: #f5e6d3;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(245, 230, 211, 0.25);
+            border-color: rgba(245, 230, 211, 0.5);
+            transform: scale(1.05);
+        }
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-indicator {
+            color: #f5e6d3;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .click-zones {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            pointer-events: none;
+        }
+        .click-zone {
+            flex: 1;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+        .click-zone.left:hover { cursor: w-resize; }
+        .click-zone.right:hover { cursor: e-resize; }
+
+        .instructions {
+            position: fixed;
+            bottom: 20px;
+            color: #f5e6d3;
+            font-size: 0.8rem;
+            opacity: 0.5;
+            text-align: center;
         }
 
         @media (max-width: 600px) {
-            h1 { font-size: 1.5rem; }
-            .cover img { max-width: 100%; }
+            .page.cover img { max-width: 100%; }
+            .nav-btn { padding: 10px 18px; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
     <a href="../" class="back-link">← Back to Stories</a>
-    <h1>Ollie Saves Hedgie</h1>
 
-    <div class="book-container">
-        <div class="page-spread cover">
-            <img src="cover.png" alt="Cover - Ollie Saves Hedgie">
+    <div class="book-wrapper">
+        <div class="book" id="book">
+            <div class="page cover active" data-page="0">
+                <img src="cover.png" alt="Cover - Ollie Saves Hedgie">
+            </div>
+            <div class="page" data-page="1">
+                <img src="pages-01-02.png" alt="Pages 1-2">
+            </div>
+            <div class="page" data-page="2">
+                <img src="pages-03-04.png" alt="Pages 3-4">
+            </div>
+            <div class="page" data-page="3">
+                <img src="pages-05-06.png" alt="Pages 5-6">
+            </div>
+            <div class="page" data-page="4">
+                <img src="pages-07-08.png" alt="Pages 7-8">
+            </div>
+            <div class="page" data-page="5">
+                <img src="pages-09-10.png" alt="Pages 9-10">
+            </div>
+            <div class="page" data-page="6">
+                <img src="pages-11-12.png" alt="Pages 11-12">
+            </div>
+            <div class="page" data-page="7">
+                <img src="pages-13-14.png" alt="Pages 13-14">
+            </div>
+            <div class="page" data-page="8">
+                <img src="pages-15-16.png" alt="Pages 15-16">
+            </div>
+            <div class="page" data-page="9">
+                <img src="pages-17-18.png" alt="Pages 17-18">
+            </div>
+            <div class="page" data-page="10">
+                <img src="pages-19-20.png" alt="Pages 19-20">
+            </div>
+            <div class="page" data-page="11">
+                <img src="pages-21-22.png" alt="Pages 21-22">
+            </div>
+            <div class="page" data-page="12">
+                <img src="pages-23-24.png" alt="Pages 23-24">
+            </div>
+            <div class="page" data-page="13">
+                <img src="pages-25-26.png" alt="Pages 25-26">
+            </div>
+            <div class="page" data-page="14">
+                <img src="pages-27-28.png" alt="Pages 27-28 - The End">
+            </div>
+
+            <div class="click-zones">
+                <div class="click-zone left" onclick="prevPage()"></div>
+                <div class="click-zone right" onclick="nextPage()"></div>
+            </div>
         </div>
-        <div class="page-spread">
-            <img src="pages-01-02.png" alt="Pages 1-2">
-        </div>
-        <div class="page-spread">
-            <img src="pages-03-04.png" alt="Pages 3-4">
-        </div>
-        <div class="page-spread">
-            <img src="pages-05-06.png" alt="Pages 5-6">
-        </div>
-        <div class="page-spread">
-            <img src="pages-07-08.png" alt="Pages 7-8">
-        </div>
-        <div class="page-spread">
-            <img src="pages-09-10.png" alt="Pages 9-10">
-        </div>
-        <div class="page-spread">
-            <img src="pages-11-12.png" alt="Pages 11-12">
-        </div>
-        <div class="page-spread">
-            <img src="pages-13-14.png" alt="Pages 13-14">
-        </div>
-        <div class="page-spread">
-            <img src="pages-15-16.png" alt="Pages 15-16">
-        </div>
-        <div class="page-spread">
-            <img src="pages-17-18.png" alt="Pages 17-18">
-        </div>
-        <div class="page-spread">
-            <img src="pages-19-20.png" alt="Pages 19-20">
-        </div>
-        <div class="page-spread">
-            <img src="pages-21-22.png" alt="Pages 21-22">
-        </div>
-        <div class="page-spread">
-            <img src="pages-23-24.png" alt="Pages 23-24">
-        </div>
-        <div class="page-spread">
-            <img src="pages-25-26.png" alt="Pages 25-26">
-        </div>
-        <div class="page-spread">
-            <img src="pages-27-28.png" alt="Pages 27-28">
+
+        <div class="nav-controls">
+            <button class="nav-btn" id="prevBtn" onclick="prevPage()">← Prev</button>
+            <span class="page-indicator" id="pageIndicator">Cover</span>
+            <button class="nav-btn" id="nextBtn" onclick="nextPage()">Next →</button>
         </div>
     </div>
+
+    <div class="instructions">Click sides of book or use ← → arrow keys to turn pages</div>
+
+    <script>
+        const pages = document.querySelectorAll('.page');
+        const totalPages = pages.length;
+        let currentPage = 0;
+        let flipDirection = 'forward';
+
+        function showPage(index) {
+            pages.forEach((page, i) => {
+                page.classList.remove('active', 'flip-back');
+                if (i === index) {
+                    page.classList.add('active');
+                    if (flipDirection === 'back') {
+                        page.classList.add('flip-back');
+                    }
+                }
+            });
+            currentPage = index;
+            updateControls();
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages - 1) {
+                flipDirection = 'forward';
+                showPage(currentPage + 1);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                flipDirection = 'back';
+                showPage(currentPage - 1);
+            }
+        }
+
+        function updateControls() {
+            document.getElementById('prevBtn').disabled = currentPage === 0;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages - 1;
+
+            let pageText;
+            if (currentPage === 0) {
+                pageText = 'Cover';
+            } else if (currentPage === totalPages - 1) {
+                pageText = 'The End';
+            } else {
+                const startPage = (currentPage * 2) - 1;
+                const endPage = startPage + 1;
+                pageText = `Pages ${startPage}-${endPage}`;
+            }
+            document.getElementById('pageIndicator').textContent = pageText;
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextPage();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevPage();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                flipDirection = 'back';
+                showPage(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                flipDirection = 'forward';
+                showPage(totalPages - 1);
+            }
+        });
+
+        updateControls();
+    </script>
 </body>
 </html>
