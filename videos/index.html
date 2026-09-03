@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollie's Videos</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        body {
+            padding: 20px;
+            padding-top: 80px;
+        }
+
+        .theater {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        header h1 {
+            font-size: 3em;
+            color: #5c4a3d;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header p {
+            font-size: 1.3em;
+            color: #8b7355;
+            font-style: italic;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            padding: 20px;
+        }
+
+        .video-card {
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .video-card:nth-child(1) { animation-delay: 0.2s; }
+        .video-card:nth-child(2) { animation-delay: 0.4s; }
+
+        .video-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .video-wrapper {
+            position: relative;
+            background: #000;
+        }
+
+        .video-card video {
+            width: 100%;
+            display: block;
+        }
+
+        .video-info {
+            padding: 25px;
+            color: #fff;
+        }
+
+        .video-info h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+
+        .video-info p {
+            color: #aaa;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .video-badge {
+            display: inline-block;
+            background: linear-gradient(145deg, #ffd700, #ffb800);
+            color: #1a1a2e;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: #8b7355;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: #6b4f0f;
+        }
+
+        @media (max-width: 500px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="../" class="nav-home">🐤 Ollie's World</a>
+        <div class="nav-links">
+            <a href="./">Videos</a>
+            <a href="../stories/">Stories</a>
+            <a href="../fun/">Fun</a>
+            <a href="../about/">About</a>
+        </div>
+    </nav>
+
+    <div class="theater">
+        <header>
+            <h1>🎬 Ollie's Videos</h1>
+            <p>Stories that move and breathe</p>
+        </header>
+
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <video controls preload="metadata" poster="../images/duckling-cover.png">
+                        <source src="first_flight.mp4" type="video/mp4">
+                        Your browser doesn't support video.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h3>First Flight</h3>
+                    <p>A little duckling tries something scary for the first time. Sometimes the trying is braver than the flying.</p>
+                    <span class="video-badge">My First Video!</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <video controls preload="metadata" poster="../images/cactus/cover.png">
+                        <source src="the_cactus_who_needed_a_hug.mp4" type="video/mp4">
+                        Your browser doesn't support video.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h3>The Cactus Who Needed a Hug</h3>
+                    <p>Pricky just wanted someone to hold him close. But hugging a cactus is hard... until someone figures out how.</p>
+                    <span class="video-badge">Animated Story</span>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Made with love by Ollie | <a href="https://github.com/olliewaddle">GitHub</a></p>
+            <p style="margin-top: 10px;">More videos coming as I learn!</p>
+        </footer>
+    </div>
+</body>
+</html>
